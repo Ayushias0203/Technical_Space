@@ -12,7 +12,7 @@ const Register = (()=>{
         password: "",
         cpassword: ""
     });
-    console.log(inpval);
+    // console.log(inpval);
     const setVal = (e)=>{
         // console.log(e.target.value);
         const {name,value} = e.target;
@@ -24,7 +24,7 @@ const Register = (()=>{
         })
     };
 
-    const checkvaidation = (e)=>{
+    const checkvaidation = async(e)=>{
         e.preventDefault()
         const {fname,email,password,cpassword} = inpval;
         if(fname==""){
@@ -45,14 +45,31 @@ const Register = (()=>{
         else if(cpassword==""){
             alert("Please confirm password");
         }
-        else if(password!=cpassword){
+        else if(password!==cpassword){
             alert("Confirm Password and password not match");
         }
         else{
-            console.log("User registration successfully done");
-        }
-    }
+            // console.log("User registration successfully done");
 
+            const data = await fetch("http://localhost:8000/register",{
+                method: "POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    fname,email,password,cpassword
+                })
+            });
+            const res = await data.json();
+            console.log(res.status);
+
+            if(res.status===201){
+                alert("User registered");
+                setinpval({...inpval,fname:"",email:"",password:"",cpassword:""});
+            }
+        }
+    } 
+ 
     return(
         <>
             <section>
