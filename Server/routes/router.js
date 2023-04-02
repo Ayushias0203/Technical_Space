@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const userdb = require("../models/userSchema");
+const bcrypt = require("bcryptjs");
 
 
 // for user registration
@@ -34,6 +35,45 @@ router.post("/register",async(req,res)=>{
         console.log("catch block error"); 
     }
     // console.log(req.body);
+});
+
+// for user login
+
+router.post("/login",async(req,res)=>{
+    // console.log(req.body);
+    const {email,password} = req.body;
+    if(!email || !password){
+        res.status(422).json({error:"fill all the details"})
+    }
+    try{
+        const userValid = await userdb.findOne({email:email});
+        if(userValid){
+            const isMatch = await bcrypt.compare(password,userValid.password);
+
+            if(!isMatch){
+                res.status(422).json({ error: "incorrect password"})
+            }
+            else{
+                // token generate
+                const token = await userValid.generateAuthtoken();
+
+                // Cookie generation
+                res.cookie("usercookie",token,{
+                    expires:new Date(Date.now()+9000000),
+                    httpOnly:true
+                });
+                
+                const result = {
+                    userValid,
+                    token
+                }
+                res.status(201).json({status:201,result});
+            }
+        }
+    } catch(error){
+        res.status(401).json(error);
+        console.log("catch block error");
+    }
 });
 
 

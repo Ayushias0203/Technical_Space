@@ -19,7 +19,7 @@ const Login = ()=>{
         })
     };
 
-    const checkvalidation = (e)=>{
+    const checkvalidation = async(e)=>{
         e.preventDefault()
         const {email,password} =inpval;
         if(email==""){
@@ -35,7 +35,23 @@ const Login = ()=>{
             alert("Password must be 6 char");
         }
         else{
-            console.log("User registration successfully done");
+            // console.log("User registration successfully done");
+            const data = await fetch("http://localhost:8000/login",{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email,password
+                })
+            });
+            const res = await data.json();
+            console.log(res);
+
+            if(res.status===201){
+                localStorage.setItem("usersdatatoken",res.result.token)
+                setinpval({...inpval,email:"",password:""});
+            }
         }
     }
 
