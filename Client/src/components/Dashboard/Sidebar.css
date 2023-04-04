@@ -1,0 +1,12 @@
+.sidebar {
+    /* margin-top: 10px; */
+    margin-right: 10px;
+    flex: 0.2;
+  }
+
+  /* @media only screen and (max-width: 700px) {
+    .sidebar{
+      display: none;
+    }
+
+  } */
