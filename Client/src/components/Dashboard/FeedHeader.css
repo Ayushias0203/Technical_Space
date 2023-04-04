@@ -1,4 +1,4 @@
-.quoraBox {
+.techieBox {
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -9,23 +9,23 @@
     max-width: 700px;
   }
   
-  .quoraBox:hover {
+  .techieBox:hover {
     border: 1px solid rgb(175, 175, 175);
   }
   
-  .quoraBox__info {
+  .techieBox__info {
     display: flex;
     align-items: center;
   }
   
-  .quoraBox__info > h5 {
+  .techieBox__info > h5 {
     color: rgb(129, 129, 129);
     font-weight: bold;
     margin-left: 10px;
     font-size: large;
   }
   
-  .quoraBox__quora {
+  .techieBox__techie {
     display: flex;
     margin-top: 8px;
   }
