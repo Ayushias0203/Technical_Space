@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
 import "./mix.css"
-import {NavLink} from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {NavLink,useNavigate} from 'react-router-dom'
 
 const Register = (()=>{
     const [passShow,setpassShow] = useState(false);
@@ -13,6 +15,7 @@ const Register = (()=>{
         cpassword: ""
     });
     // console.log(inpval);
+    const history = useNavigate();
     const setVal = (e)=>{
         // console.log(e.target.value);
         const {name,value} = e.target;
@@ -28,25 +31,39 @@ const Register = (()=>{
         e.preventDefault()
         const {fname,email,password,cpassword} = inpval;
         if(fname==""){
-            alert("Please enter your name");
+            toast.warning("Please enter your name", {
+                position: "top-center"
+            });
         }
         else if(email==""){
-            alert("Please enter your email");
+            toast.error("Please enter your email", {
+                position: "top-center"
+            });
         }
         else if(!email.includes("@")){
-            alert("Please enter valid email");
+            toast.warning("Please enter valid email", {
+                position: "top-center"
+            });
         }
         else if(password==""){
-            alert("Please enter your password");
+            toast.error("password is required!", {
+                position: "top-center"
+            });
         }
         else if(password.length<6){
-            alert("Password must be 6 char");
+            toast.error("password must be 6 char!", {
+                position: "top-center"
+            });
         }
         else if(cpassword==""){
-            alert("Please confirm password");
+            toast.error("Please confirm password", {
+                position: "top-center"
+            });
         }
         else if(password!==cpassword){
-            alert("Confirm Password and password not match");
+            toast.error("Confirm Password and password not match", {
+                position: "top-center"
+            });
         }
         else{
             // console.log("User registration successfully done");
@@ -64,7 +81,9 @@ const Register = (()=>{
             console.log(res.status);
 
             if(res.status===201){
-                alert("User registered");
+                toast.success("Registration Successfully done 😃!", {
+                    position: "top-center"
+                });
                 setinpval({...inpval,fname:"",email:"",password:"",cpassword:""});
             }
         }
@@ -108,6 +127,7 @@ const Register = (()=>{
                         <button className='btn' onClick={checkvaidation}>Sign Up</button>
                         <p>Already have an account? <NavLink to="/">LogIn</NavLink></p>
                     </form>
+                    <ToastContainer />
                 </div>
             </section>
         </>

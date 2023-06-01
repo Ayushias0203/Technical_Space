@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import "./mix.css"
-import {NavLink} from "react-router-dom"
+import {NavLink,useNavigate} from "react-router-dom"
+import { ToastContainer, toast } from 'react-toastify';
+
 
 const Login = ()=>{
     const [passShow,setpassShow] = useState(false);
@@ -9,6 +11,7 @@ const Login = ()=>{
         email: "",
         password: ""
     });
+    const history = useNavigate();
     const setVal = (e)=>{
         const {name,value} = e.target;
         setinpval(()=>{
@@ -23,16 +26,24 @@ const Login = ()=>{
         e.preventDefault()
         const {email,password} =inpval;
         if(email==""){
-            alert("Please enter your email");
+            toast.error("email is required!", {
+                position: "top-center"
+            });
         }
         else if(!email.includes("@")){
-            alert("Please enter valid email");
+            toast.warning("Please enter valid email", {
+                position: "top-center"
+            });
         }
         else if(password==""){
-            alert("Please enter your password");
+            toast.error("password is required!", {
+                position: "top-center"
+            });
         }
         else if(password.length<6){
-            alert("Password must be 6 char");
+            toast.error("password must be 6 char!", {
+                position: "top-center"
+            });
         }
         else{
             // console.log("User registration successfully done");
@@ -46,10 +57,12 @@ const Login = ()=>{
                 })
             });
             const res = await data.json();
+
             console.log(res);
 
             if(res.status===201){
-                localStorage.setItem("usersdatatoken",res.result.token)
+                localStorage.setItem("usersdatatoken",res.result.token);
+                history("/dash"); 
                 setinpval({...inpval,email:"",password:""});
             }
         }
@@ -80,6 +93,7 @@ const Login = ()=>{
                         <button className='btn' onClick={checkvalidation}>Log In</button>
                         <p>Don't have an account? <NavLink to="/register">SignUp</NavLink></p>
                     </form>
+                    <ToastContainer />
                 </div>
             </section>
         </>
