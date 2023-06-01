@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const userdb = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
-
+const authenticate = require("../middleware/authenticate");
 
 // for user registration
 
