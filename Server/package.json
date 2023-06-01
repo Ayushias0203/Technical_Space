@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
+    "mongodb-proxy": "^1.0.45",
     "mongoose": "^7.0.3",
     "parser": "^0.1.4",
     "validator": "^13.9.0"

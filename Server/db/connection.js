@@ -1,5 +1,5 @@
 const mongoose = require ("mongoose");
-// const DB = process.env.REACT_APP_DB_MONGO;
+const DB = process.env.REACT_APP_DB_MONGO;
 
 mongoose.connect(DB,{
     useNewUrlParser: true,

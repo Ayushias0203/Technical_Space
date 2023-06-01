@@ -2,6 +2,15 @@ const express = require('express');
 const router = new express.Router();
 const userdb = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
+//
+
+
+router.get("/", (req, res) => {
+    res.send("This api is reserved for quora clone");
+  });
+
+
+//
 
 
 // for user registration

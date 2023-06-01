@@ -31,9 +31,7 @@ function Header() {
         <div className="qHeader__icon">
           <FeaturedPlayListOutlinedIcon />
         </div>
-        <div className="qHeader__icon">
-          <AssignmentTurnedInOutlined />
-        </div>
+       
         <div className="qHeader__icon">
           <PeopleAltOutlined />
         </div>
