@@ -2,8 +2,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 
 const DB = process.env.DB_HOST;
-const mongoose = require ("mongoose");
-const DB = process.env.REACT_APP_DB_MONGO;
 
 mongoose.connect(DB,{
     useNewUrlParser: true,
