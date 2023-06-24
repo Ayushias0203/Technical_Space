@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const userdb = require("../models/userSchema");
 const bcrypt = require("bcryptjs");
-
+const authenticate = require("../middleware/authenticate");
 
 // for user registration
 
@@ -103,6 +103,7 @@ router.get("/logout",authenticate,async(req,res)=>{
         res.status(401).json({status:401,error})
     }
 })
+
 
 
 module.exports = router;

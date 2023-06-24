@@ -2,7 +2,7 @@ import Header from "./components/header";
 import Login from "./components/login";
 import {Routes,Route, useNavigate} from "react-router-dom";
 import Register from "./components/register";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/Dashboard/dashboard";
 import Error from "./components/Error";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';

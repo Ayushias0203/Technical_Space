@@ -180,6 +180,7 @@
     border: none;
     outline: none;
     margin-left: 5px;
+    width: 90%;
   }
   
   .modal__buttons {
