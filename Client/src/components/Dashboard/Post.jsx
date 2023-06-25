@@ -65,7 +65,7 @@ function Post({ post }) {
     
         <div className='post__info'>
             <Avatar/>
-            <h4> {post?.user?.userName} </h4>
+            <h4> {post?.user?.fname} </h4>
             <small>  <LastSeen date={post?.createdAt} /></small>
         </div>
         <div className='post__body'>
@@ -99,7 +99,7 @@ function Post({ post }) {
              
               <h1>{post?.questionName}</h1>
               <p>
-                asked by <span className="name">{post?.user?.userName}</span> on{" "}
+                asked by <span className="name">{post?.user?.fname}</span> on{" "}
                 <span className="name">
                   {new Date(post?.createdAt).toLocaleString()}
                 </span>

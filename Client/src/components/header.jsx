@@ -4,9 +4,15 @@ import Avatar from '@mui/material/Avatar';
 import {LoginContext } from './ContextProvider/Context';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, styled, Button } from '@mui/material'; 
 import { useNavigate , NavLink } from "react-router-dom"
 
+
+
+
 const Header = ()=>{
+    const navigate = useNavigate();
     const {logindata, setLoginData} = useContext(LoginContext);
     const history = useNavigate();
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,9 +62,11 @@ const Header = ()=>{
         <>
             <header>
                 <nav>
-                    <h1>Hello Techie</h1>
+              
+                    <h1>Welcome {logindata.ValidUserOne? logindata.ValidUserOne.fname: "Techie"}</h1>
                     <Avatar style={{background:"blue"}} onClick={handleClick}/>
-
+                 
+                    
                     <Menu
                         id="basic-menu"
                         anchorEl={anchorEl}
@@ -91,6 +99,12 @@ const Header = ()=>{
                         }
 
                     </Menu>
+                 
+                {/* <Link to='/'>HOME</Link>
+                <Link to='/about'>ABOUT</Link>
+                <Link to='/contact'>CONTACT</Link>
+                <Link to='/account'>LOGOUT</Link> */}
+                  
                 </nav>
             </header>
         </>

@@ -1,11 +1,12 @@
-import React,{useState} from 'react'
+import React, { useContext, useEffect ,useState} from 'react'
 import HomeIcon from '@mui/icons-material/Home';
+import { Link } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Modal from "react-responsive-modal";
+import { Toolbar, styled } from '@mui/material'; 
 import FeaturedPlayListOutlinedIcon from "@mui/icons-material/FeaturedPlayListOutlined";
 import {
   AssignmentTurnedInOutlined,
-  Link,
   NotificationsOutlined,
   PeopleAltOutlined,
   Search,
@@ -16,9 +17,18 @@ import './header.css'
  import {  Button, Input } from "@mui/material";
  import "react-responsive-modal/styles.css"
  import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { LoginContext } from '../ContextProvider/Context';
+import CircularProgress from '@mui/material/CircularProgress';
 
  
 function Header() {
+
+  const { logindata, setLoginData } = useContext(LoginContext);
+
+  const [data, setData] = useState(false);
+
+  const history = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false)
   const Close = (<CloseIcon/>)
@@ -29,7 +39,38 @@ function Header() {
   const questionName = input;
   //const user = useSelector(selectUser);
 
-  
+  const DashboardValid = async () => {
+    let token = localStorage.getItem("usersdatatoken");
+
+    const res = await fetch("http://localhost:8000/validuser", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": token
+        }
+    });
+
+    const data = await res.json();
+
+    if (data.status == 401 || !data) {
+        history("*");
+    } else {
+        console.log("user verify");
+        setLoginData(data)
+       // console.log(data);
+        // history("/");
+    }
+}
+
+useEffect(() => {
+  setTimeout(() => {
+      DashboardValid();
+      setData(true)
+  }, 2000)
+
+}, [])
+
+
 
   const handleSubmit = async () => {
     if (question !== "") {
@@ -41,7 +82,7 @@ function Header() {
       const body = {
         questionName: question,
         questionUrl: inputUrl,
-        // user: user,
+         user: logindata ? logindata.ValidUserOne.fname : "",
       };
       await axios
         .post("http://localhost:8000/questions", body, config)
@@ -59,6 +100,7 @@ function Header() {
 
   return (
     <div className="qHeader">
+     
     <div className="qHeader-content">
       <div className="qHeader__logo">
         <img
@@ -68,17 +110,23 @@ function Header() {
       </div>
       <div className="qHeader__icons">
         <div className="qHeader__icon">
-          <HomeIcon />
+        <Link to='/dash'>HOME</Link>
+               
+               
+               
+           {/* <Link to='/dash'><HomeIcon/> </Link> */}
         </div>
         <div className="qHeader__icon">
-          <FeaturedPlayListOutlinedIcon />
+        <Link to='/blog'>BLOGS</Link>
+        {/* <Link to='/blog'> <FeaturedPlayListOutlinedIcon /> </Link> */}
         </div>
        
         <div className="qHeader__icon">
-          <PeopleAltOutlined />
+        <Link to='/contact'>CONTACT</Link>
+          {/* <PeopleAltOutlined /> */}
         </div>
         <div className="qHeader__icon">
-          <NotificationsOutlined />
+        <Link to='/about'>ABOUT</Link>
         </div>
       </div>
       <div className="qHeader__input">
@@ -87,10 +135,10 @@ function Header() {
         </div>
         <div className="qHeader__Rem">
          
-            <Avatar/>
+            {/* <Avatar/> */}
          
          
-          
+            {/* <h3>User Email:{logindata ? logindata.ValidUserOne.email : ""}</h3> */}
           <Button onClick={()=> setIsModalOpen(true)}>Add Question</Button>
       <Modal
       open={isModalOpen}
@@ -120,7 +168,7 @@ function Header() {
                   "https://images-platform.99static.com//_QXV_u2KU7-ihGjWZVHQb5d-yVM=/238x1326:821x1909/fit-in/500x500/99designs-contests-attachments/119/119362/attachment_119362573"
                 }
               />
-              {/* <p>{user.disPlayName ? user.disPlayName : user.email} asked</p> */}
+              {/* <p>{logindata.fname ? logindata.fname : logindata.email} asked</p> */}
                <div className="modal__scope">
                 <PeopleAltOutlined /> 
                 <p>Public</p>
@@ -174,6 +222,7 @@ function Header() {
       </Modal>
       </div>
     </div>
+    
   </div>
   )
 }
