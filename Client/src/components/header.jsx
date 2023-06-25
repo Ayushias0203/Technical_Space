@@ -64,7 +64,7 @@ const Header = ()=>{
                 <nav>
               
                     <h1>Welcome {logindata.ValidUserOne? logindata.ValidUserOne.fname: "Techie"}</h1>
-                    <Avatar style={{background:"blue"}} onClick={handleClick}/>
+                    <Avatar style={{background:"#3474bd"}} onClick={handleClick}/>
                  
                     
                     <Menu

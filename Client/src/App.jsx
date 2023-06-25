@@ -11,7 +11,8 @@ import { useEffect, useContext, useState } from "react";
 import { LoginContext } from "./components/ContextProvider/Context";
 import DetailView from "./components/Blog/BlogDetails";
 import CreatePost from "./create/CreatePost";
-
+import Contact from "./components/Contact/Contact";
+import About from "./components/About/About";
 
 function App() {
   const [data, setData] = useState(false);
@@ -66,6 +67,8 @@ function App() {
               <Route path="/blog" element={<Blog/>} />
               <Route path='/create'  element={<CreatePost />} />
               <Route path='blog/details/:id' element={<DetailView />} />
+              <Route path='/about' element={<About />} />
+              <Route path='/contact' element={<Contact />} />
               <Route path="*" element={<Error />} />
             </Routes>
             

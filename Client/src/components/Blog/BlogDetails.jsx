@@ -3,12 +3,12 @@ import { useState, useEffect, useContext } from 'react';
 import { Box, Typography, styled } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { Link, useNavigate, useParams } from 'react-router-dom'
-
+import axios from "axios";
 //import { API } from '../../service/api';
 import { LoginContext } from '../ContextProvider/Context'
 
 // components
-// import Comments from './comments/comments';
+ import Comments from './comments/comments';
 
 const Container = styled(Box)(({ theme }) => ({
     margin: '50px 100px',
@@ -57,40 +57,54 @@ const DetailView = () => {
     const url = 'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
     
     const [post, setPost] = useState({});
-    const { account } = useContext(LoginContext);
+    const {logindata, setLoginData} = useContext(LoginContext);
+    // const { account } = useContext(LoginContext);
 
     const navigate = useNavigate();
     const { id } = useParams();
     
     useEffect(() => {
-        console.log({user});
+        console.log({logindata});
         const fetchData = async () => {
-            let response = await API.getPostById(id);
-            if (response.isSuccess) {
-                setPost(response.data);
-               
+            // let response = await axios.get("http://localhost:8000/post/id");
+            let response = await fetch('http://localhost:8000/post'+'/'+id ,{method: 'GET',headers:{ id : id || '' }});
+            
+            const data = await response.json();
+            console.log(data);
+            if (data) {
+                setPost(data);
+                console.log(post);
             }
+        
         }
         fetchData();
-    }, []);
+    }, [id]);
 
     const deleteBlog = async () => {  
-        await API.deletePost(post._id);
-        navigate('/')
+        let res = await fetch('http://localhost:8000/delete'+'/'+id ,{method: 'DELETE'});
+        if(res.status === 200){
+        history('/')
+        }
+        else{
+            alert("UNABLE TO DELETE")
+        }
     }
 
     return (
+
         <Container>
-            <Image src={post.picture || url} alt="post" />
-            {/* <Box style={{ float: 'right' }}>
+            <Image src={post.picture || url} alt="post" />{
+            logindata.ValidUserOne&&post?
+            <Box style={{ float: 'right' }}>
                 {   
-                    account.username === post.username && 
+                    logindata.ValidUserOne.fname === post.username && 
                     <>  
                         <Link to={`/update/${post._id}`}><EditIcon color="primary" /></Link>
                         <DeleteIcon onClick={() => deleteBlog()} color="error" />
                     </>
                 }
-            </Box> */}
+            </Box>:''}
+           
             <Heading>{post.title}</Heading>
 
             <Author>
