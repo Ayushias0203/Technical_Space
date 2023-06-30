@@ -4,7 +4,10 @@ const userdb = require("../models/userSchema");
 const Post = require("../models/BlogPost");
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
+// <<<<<<< master
 
+// =======
+// >>>>>>> master
 
 // for user registration
 
