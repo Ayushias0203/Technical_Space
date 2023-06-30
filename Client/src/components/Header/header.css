@@ -28,9 +28,17 @@
   }
   
   .qHeader__icon {
-    padding: 5px;
     cursor: pointer;
+    padding: 20px;
+    color: #000;
+    -webkit-text-decoration: none;
+    text-decoration: none;
   }
+
+  .qHeader__icon a {
+    color: #000000;
+    text-decoration: none;
+}
   
   .qHeader__icon:hover {
     background-color: #eee;
@@ -68,11 +76,12 @@
   } */
   
   .qHeader__input {
+    width: 350px;
     display: flex;
     align-items: center;
     border: 1px solid lightgray;
     padding: 5px;
-    border-radius: 5px;
+    border-radius: 20px;
     margin-left: 5px;
   }
   
@@ -108,7 +117,7 @@
   
   .qHeader__Rem > .MuiButton-root {
     color: white;
-    background: #222;
+    background: #1c68a9d6;
     text-transform: inherit;
     border-radius: 5px;
     margin-left: 25px;
@@ -180,6 +189,7 @@
     border: none;
     outline: none;
     margin-left: 5px;
+    width: 90%;
   }
   
   .modal__buttons {

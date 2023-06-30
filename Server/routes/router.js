@@ -1,8 +1,13 @@
 const express = require('express');
 const router = new express.Router();
 const userdb = require("../models/userSchema");
+const Post = require("../models/BlogPost");
 const bcrypt = require("bcryptjs");
 const authenticate = require("../middleware/authenticate");
+// <<<<<<< master
+
+// =======
+// >>>>>>> master
 
 // for user registration
 
@@ -103,6 +108,99 @@ router.get("/logout",authenticate,async(req,res)=>{
         res.status(401).json({status:401,error})
     }
 })
+
+//router for posts 
+
+router.post("/create", authenticate, async (req, res) => {
+    try {
+        await Post
+          .create({
+            title: req.body.post.title,
+    description: req.body.post.description,
+    picture: req.body.post.picture,
+    username: req.body.post.username,
+    categories: req.body.post.categories,
+    createdDate: req.body.post.createdDate
+          })
+          .then(() => {
+           // alert("post added successfully");
+            res.status(201).send({
+              status: true,
+              message: "Post Added successfully",
+            });
+          })
+          .catch((e) => {
+        // console.log(req.body);
+            res.status(400).send({
+              status: false,
+              message: "Bad request",
+            });
+          });
+      } catch (e) {
+        res.status(500).send({
+          status: false,
+          message: "Error while adding post",
+        });
+      }
+
+});
+
+router.put('/update/:id', authenticate, async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+
+        if (!post) {
+            response.status(404).json({ msg: 'Post not found' })
+        }
+        
+        await Post.findByIdAndUpdate( request.params.id, { $set: request.body })
+
+        response.status(200).json('post updated successfully');
+    } catch (error) {
+        response.status(500).json(error);
+    }
+});
+
+router.delete('/delete/:id', authenticate, async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+        
+        await post.delete()
+
+        response.status(200).json('post deleted successfully');
+    } catch (error) {
+        response.status(500).json(error)
+    }
+});
+
+//for fetching posts 
+router.get('/post/:id', async (request, response) => {
+    try {
+        const post = await Post.findById(request.params.id);
+
+        response.status(200).json(post);
+    } catch (error) {
+        response.status(500).json(error)
+    }
+});
+
+router.get('/posts', async (request, response) => {
+    let username = request.query.username;
+    let category = request.query.category;
+    let posts;
+    try {
+        if(username) 
+            posts = await Post.find({ username: username });
+        else if (category) 
+            posts = await Post.find({ categories: category });
+        else 
+            posts = await Post.find({});
+            
+        response.status(200).json(posts);
+    } catch (error) {
+        response.status(500).json(error)
+    }
+});
 
 
 module.exports = router;
