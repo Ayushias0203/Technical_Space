@@ -8,7 +8,7 @@ const [logindata,setLoginData] = useState("");
 const DashboardValid = async () => {
   let token = localStorage.getItem("usersdatatoken");
 
-  const res = await fetch("http://localhost:8000/validuser", {
+  const res = await fetch("https://technical-space-w69w.vercel.app/validuser", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

@@ -10,7 +10,7 @@ function Feed() {
   const [posts, setPosts] = useState([]);
 
   // useEffect(()=>{
-  //  axios.get("http://localhost:8000/validuser")
+  //  axios.get("https://technical-space-w69w.vercel.app/validuser")
   //  .then((res) => {
   //   console.log(res.data);
   // })
@@ -21,7 +21,7 @@ function Feed() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8000/questions")
+      .get("https://technical-space-w69w.vercel.app/questions")
       .then((res) => {
         console.log(res.data.reverse());
         setPosts(res.data);

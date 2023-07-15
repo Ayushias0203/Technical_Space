@@ -42,7 +42,7 @@ function Header() {
   const DashboardValid = async () => {
     let token = localStorage.getItem("usersdatatoken");
 
-    const res = await fetch("http://localhost:8000/validuser", {
+    const res = await fetch("https://technical-space-w69w.vercel.app/validuser", {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ useEffect(() => {
          user: logindata ? logindata.ValidUserOne.fname : "",
       };
       await axios
-        .post("http://localhost:8000/questions", body, config)
+        .post("https://technical-space-w69w.vercel.app/questions", body, config)
         .then((res) => {
           console.log(res.data);
           alert(res.data.message);

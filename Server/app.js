@@ -12,7 +12,7 @@ const questionRouter = require("./routes/questionroute");
 
 //
 
-const port = 8000;
+const port = process.env.PORT || 8000  ;
 
 // app.get("/",(req,res)=>{
 //     res.status(201).json("server created")
@@ -38,5 +38,11 @@ router.use("/questions", questionRouter);
 // });
 
 app.listen(port,()=>{
-    console.log(`Server is running at port: ${port}`);
+    console.log(`Server is running at port: ${port} `);
 })
+
+app.get('*',(req,res,next)=>{
+    res.status(200).json({
+      message:'bad request'
+    })
+  })
