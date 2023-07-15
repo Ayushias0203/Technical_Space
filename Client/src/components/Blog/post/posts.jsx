@@ -18,7 +18,7 @@ const Posts = () => {
 
     // useEffect(() => {
     //     const fetchData = async () => { 
-    //         let response = await fetch('http://localhost:8000/posts',{method: 'GET',headers:{ category : category || '' }});
+    //         let response = await fetch('https://technical-space-w69w.vercel.app/posts',{method: 'GET',headers:{ category : category || '' }});
     //         if (response.isSuccess) {
     //             getPosts(response.data);
     //         }
@@ -28,7 +28,7 @@ const Posts = () => {
 
     useEffect(() => {
         axios
-          .get("http://localhost:8000/posts")
+          .get("https://technical-space-w69w.vercel.app/posts")
           .then((res) => {
             console.log(res.data.reverse());
             getPosts(res.data);

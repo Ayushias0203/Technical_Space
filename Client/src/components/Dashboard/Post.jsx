@@ -47,7 +47,7 @@ function Post({ post }) {
         //user: user,
       };
       await axios
-        .post("http://localhost:8000/answers", body, config)
+        .post("https://technical-space-w69w.vercel.app/answers", body, config)
         .then((res) => {
           console.log(res.data);
           alert("Answer added succesfully");

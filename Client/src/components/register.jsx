@@ -68,7 +68,7 @@ const Register = (()=>{
         else{
             // console.log("User registration successfully done");
 
-            const data = await fetch("http://localhost:8000/register",{
+            const data = await fetch("https://technical-space-w69w.vercel.app/register",{
                 method: "POST",
                 headers:{
                     "Content-Type":"application/json"
