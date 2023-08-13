@@ -22,3 +22,8 @@ Our platform is dedicated to providing a space where developers can come togethe
 **Frontend**: We utilized EJS, CSS, and JavaScript to create an engaging and responsive user interface. React.js was also employed to enhance the interactivity of the website.
 
 **Backend**: The backend of our website was built using MongoDB, Express.js, and Node.js. These technologies enable efficient data storage, retrieval, and management, as well as seamless communication between the frontend and backend.
+
+### Contributors
+
+1. Ayushi Shukla
+2. Aman Raj
