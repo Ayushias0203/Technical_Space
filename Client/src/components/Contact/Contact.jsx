@@ -44,7 +44,7 @@ const Contact = () => {
    
             <Wrapper>
                 <Typography variant="h3">Getting in touch is easy! 
-                <Link href="mailto:amanraj7166@gmail.com?Subject=This is a subject" target="_blank" color="inherit">
+                <Link href="mailto:shukla.c.ayushi@gmail.com?Subject=This is a subject" target="_blank" color="inherit">
                         <Email />
                     </Link>.
                 </Typography>    
